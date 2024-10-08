@@ -26,42 +26,18 @@ namespace AddressManager.Services
                 return;
             }
 
-            // Überprüfen ob die Telefonnummer bereits vorhanden ist
-            foreach (Address a in addresses)
+            if (addresses.Any(a => a.PhoneNumber == phoneNumber))
             {
-                if (a.PhoneNumber == phoneNumber)
-                {
-                    Console.WriteLine("The phone number already exists.");
-                    return;
-                }
+                Console.WriteLine("The phone number already exists.");
+                return;
             }
 
-            // Höchste ID in der Liste suchen
-            foreach (Address a in addresses)
-            {
-                if (a.Id >= newId) // Wenn die aktuelle ID größer oder gleich dem aktuellen newId ist
-                {
-                    newId = a.Id + 1; // newId auf die nächste ID erhöhen
-                }
-            }
+            // Ternäre Operator (links Bedingung)
+            newId = addresses.Any() ? addresses.Max(a => a.Id) + 1 : 1;
 
             Address newAddress = new Address(firstName, lastName, newId, street, postalCode, city, phoneNumber);
             addresses.Add(newAddress);
             Console.WriteLine("The address is added successfully.");
-
-            /* Überprüfen, ob eine Adresse mit der angegebenen Telefonnummer bereits existiert
-             * LINQ Ausdruck, Any return boolean Wert
-             * a = jedes Adress-Objekt, => iteriert durch addresses, überprüft Telefonnummer
-            bool exists = addresses.Any(a => a.PhoneNumber == phoneNumber);
-            if (exists)
-            {
-                throw new InvalidOperationException("Address with this phone number already exists.");
-            }
-
-            // Neue Adresse erstellen und zur Liste hinzufügen
-            Address newAddress = new Address(firstName, lastName, newId, street, city, postalCode, phoneNumber);
-            addresses.Add(newAddress);
-            Console.WriteLine("The address is added succesfully");*/
         }
 
         // Methode zum Entfernen einer Adresse anhand der ID

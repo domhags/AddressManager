@@ -193,7 +193,7 @@ class Program
     public static void ListAddresses(IAddressBook addressManager)
     {
         var addresses = addressManager.GetAllAddresses();
-        if (!addresses.Any())
+        if (!addresses.Any()) // Überprüft ob Adressen vorhanden sind
         {
             Console.WriteLine("No addresses found.");
         }
@@ -202,10 +202,15 @@ class Program
             Console.WriteLine("ID   | First Name      | Last Name       | Street                         | City            | Postal Code | Phone Number");
             Console.WriteLine("------------------------------------------------------------------------------------------------------------------------");
 
-            foreach (var address in addresses)
+            // LINQ Ausdruck, um die Adressen in der gewünschten Form zu formatieren mithilfe des Selects
+            var formattedAddresses = addresses.Select(address => $"{address.Id,-4} | {address.FirstName,-15} | {address.LastName,-15} | {address.Street,-30} | {address.City,-15} | {address.PostalCode,-11} | {address.PhoneNumber,-10}");
+            
+            // Ausgabe aller formatierten Adressen
+            foreach (var formattedAddress in formattedAddresses)
             {
-                Console.WriteLine($"{address.Id,-4} | {address.FirstName,-15} | {address.LastName,-15} | {address.Street,-30} | {address.City,-15} | {address.PostalCode,-11} | {address.PhoneNumber,-10}");
+                Console.WriteLine(formattedAddress);
             }
         }
     }
+
 }
