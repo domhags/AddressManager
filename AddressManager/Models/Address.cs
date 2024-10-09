@@ -1,6 +1,4 @@
 ﻿using AddressManager.Utils;
-using System;
-using System.Text.RegularExpressions;
 
 namespace AddressManager.Models
 {
@@ -17,16 +15,6 @@ namespace AddressManager.Models
             : base(firstName, lastName)
         {
             SetId(id);
-            SetStreet(street);
-            SetPostalCode(postalCode);
-            SetCity(city);
-            SetPhoneNumber(phoneNumber);
-        }
-
-        // Überladener Konstruktor ohne ID
-        public Address(string firstName, string lastName, string street, string postalCode, string city, string phoneNumber)
-            : base(firstName, lastName)
-        {
             SetStreet(street);
             SetPostalCode(postalCode);
             SetCity(city);
